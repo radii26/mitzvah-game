@@ -37,7 +37,7 @@ class Player {
     constructor() {
         this.x = 100;
         this.y = CONFIG.CANVAS_HEIGHT / 2;
-        this.width = 30;
+        this.width = 35; // Increased for better graphics
         this.height = 40;
         this.speed = 5;
         this.color = '#4a90e2';
@@ -60,47 +60,115 @@ class Player {
     }
 
     draw() {
-        // Side profile of rabbi facing right
+        // Enhanced side profile of rabbi facing right
         const x = this.x;
         const y = this.y;
         
-        // Body (tallit/robe)
-        ctx.fillStyle = this.color;
-        ctx.fillRect(x, y + 15, 25, 25);
+        // Tallit (prayer shawl) - white with stripes
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x - 2, y + 12, 32, 28);
+        // Tallit stripes
+        ctx.fillStyle = '#000080';
+        ctx.fillRect(x + 2, y + 14, 2, 24);
+        ctx.fillRect(x + 6, y + 14, 2, 24);
+        ctx.fillRect(x + 10, y + 14, 2, 24);
+        ctx.fillRect(x + 14, y + 14, 2, 24);
         
-        // Head (side profile)
+        // Head (side profile - more detailed)
         ctx.fillStyle = '#ffdbac';
         ctx.beginPath();
-        ctx.arc(x + 8, y + 12, 10, 0, Math.PI * 2);
+        ctx.arc(x + 10, y + 10, 11, 0, Math.PI * 2);
         ctx.fill();
         
-        // Beard (side profile - flowing down)
+        // Ear
+        ctx.fillStyle = '#ffdbac';
+        ctx.beginPath();
+        ctx.arc(x + 3, y + 12, 4, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Beard (side profile - more detailed and flowing)
         ctx.fillStyle = this.beardColor;
         ctx.beginPath();
-        ctx.moveTo(x + 3, y + 18);
-        ctx.lineTo(x + 8, y + 20);
-        ctx.lineTo(x + 3, y + 35);
-        ctx.lineTo(x - 2, y + 30);
+        ctx.moveTo(x + 2, y + 18);
+        ctx.quadraticCurveTo(x + 5, y + 22, x + 8, y + 25);
+        ctx.quadraticCurveTo(x + 5, y + 30, x + 2, y + 38);
+        ctx.quadraticCurveTo(x - 3, y + 35, x - 2, y + 30);
+        ctx.quadraticCurveTo(x - 1, y + 25, x + 2, y + 20);
         ctx.closePath();
         ctx.fill();
-        
-        // Hat (kippah/yarmulke on top of head)
-        ctx.fillStyle = '#000';
+        // Beard texture lines
+        ctx.strokeStyle = '#654321';
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(x + 8, y + 8, 5, 0, Math.PI * 2);
+        ctx.moveTo(x + 3, y + 22);
+        ctx.lineTo(x - 1, y + 28);
+        ctx.moveTo(x + 4, y + 26);
+        ctx.lineTo(x, y + 32);
+        ctx.stroke();
+        
+        // Kippah/yarmulke (more detailed)
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.arc(x + 10, y + 6, 7, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Eye (side profile)
-        ctx.fillStyle = '#000';
-        ctx.fillRect(x + 10, y + 11, 2, 2);
-        
-        // Nose (side profile)
+        // Kippah rim
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(x + 12, y + 13);
-        ctx.lineTo(x + 15, y + 14);
+        ctx.arc(x + 10, y + 6, 7, 0, Math.PI * 2);
         ctx.stroke();
+        
+        // Eye (side profile - more detailed)
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(x + 13, y + 10, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(x + 14, y + 10, 2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Eyebrow
+        ctx.fillStyle = '#654321';
+        ctx.fillRect(x + 11, y + 7, 5, 1);
+        
+        // Nose (side profile - more detailed)
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(x + 15, y + 11);
+        ctx.quadraticCurveTo(x + 18, y + 12, x + 20, y + 13);
+        ctx.stroke();
+        ctx.fillStyle = '#ffdbac';
+        ctx.beginPath();
+        ctx.arc(x + 18, y + 12, 2, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Mouth
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x + 16, y + 15);
+        ctx.quadraticCurveTo(x + 18, y + 16, x + 19, y + 15);
+        ctx.stroke();
+        
+        // Body/robe under tallit
+        ctx.fillStyle = '#2c3e50';
+        ctx.fillRect(x + 2, y + 28, 24, 12);
+        
+        // Arms (one visible in side profile)
+        ctx.fillStyle = '#2c3e50';
+        ctx.fillRect(x + 24, y + 20, 6, 8);
+        // Hand
+        ctx.fillStyle = '#ffdbac';
+        ctx.beginPath();
+        ctx.arc(x + 28, y + 28, 3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Legs
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(x + 8, y + 38, 4, 2);
+        ctx.fillRect(x + 16, y + 38, 4, 2);
     }
 
     getBounds() {
@@ -164,6 +232,18 @@ class MitzvahCollectible {
             ctx.arc(this.x + this.width / 2, this.y + this.height / 2, 8, 0, Math.PI * 2);
             ctx.stroke();
         }
+        
+        // Label
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        const label = this.type === 'lulav' ? 'Lulav' : 'Esrog';
+        const textY = this.y + this.height + 2;
+        ctx.strokeText(label, this.x + this.width / 2, textY);
+        ctx.fillText(label, this.x + this.width / 2, textY);
     }
 
     getBounds() {
@@ -238,6 +318,18 @@ class MitzvahNPC {
             ctx.arc(centerX, centerY, this.helpRadius, 0, Math.PI * 2);
             ctx.stroke();
         }
+        
+        // Label
+        ctx.fillStyle = '#fff';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        const label = this.type === 'charity' ? 'Charity' : 'Helping';
+        const textY = this.y + this.height + 2;
+        ctx.strokeText(label, centerX, textY);
+        ctx.fillText(label, centerX, textY);
     }
 
     getBounds() {
@@ -273,7 +365,7 @@ class YetzerHara {
         this.y = y;
         this.width = 35;
         this.height = 35;
-        this.speed = 3;
+        this.speed = 2; // Slower so player can outrun
         this.color = '#8b0000';
     }
 
@@ -430,14 +522,14 @@ function checkCollision(rect1, rect2) {
 function spawnMitzvahCollectible() {
     const types = ['lulav', 'esrog'];
     const type = types[Math.floor(Math.random() * types.length)];
-    const y = Math.random() * (CONFIG.CANVAS_HEIGHT - 25);
+    const y = Math.random() * (CONFIG.CANVAS_HEIGHT - 45); // Account for label space
     mitzvahCollectibles.push(new MitzvahCollectible(CONFIG.CANVAS_WIDTH, y, type));
 }
 
 function spawnMitzvahNPC() {
     const types = ['charity', 'helping'];
     const type = types[Math.floor(Math.random() * types.length)];
-    const y = Math.random() * (CONFIG.CANVAS_HEIGHT - 30);
+    const y = Math.random() * (CONFIG.CANVAS_HEIGHT - 50); // Account for label space
     mitzvahNPCs.push(new MitzvahNPC(CONFIG.CANVAS_WIDTH, y, type));
 }
 
