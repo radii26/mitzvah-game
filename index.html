@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitzvah Game - Rabbi Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Mitzvah Game</h1>
+            <div class="stats">
+                <div class="stat">
+                    <span class="label">Score:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Target:</span>
+                    <span id="target">100</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Lives:</span>
+                    <span id="lives">7</span>
+                </div>
+                <div class="stat streak">
+                    <span class="label">Mitzvah Streak:</span>
+                    <span id="streak">0</span>
+                    <span id="multiplier" class="multiplier">x1</span>
+                </div>
+            </div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameOver" class="game-over hidden">
+            <div class="game-over-content">
+                <h2 id="gameOverTitle">Game Over</h2>
+                <p id="gameOverMessage"></p>
+                <button id="restartBtn">Play Again</button>
+            </div>
+        </div>
+        <div class="instructions">
+            <p><strong>Controls:</strong> Arrow Keys or WASD to move</p>
+            <p>Collect mitzvos (lulav, esrog) and help people. Avoid the Yetzer Hara!</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
+
